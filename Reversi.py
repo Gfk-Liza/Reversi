@@ -1,3 +1,5 @@
+Python での設計図
+
 '''
 Reversi
 8*8
@@ -12,6 +14,14 @@ Reversi
 
 def is_in_board(board, y, x):
     return (y > -1 and y < 8 and x > -1 and x < 8)
+
+
+def count_Stones(board, turn):
+    n = 0
+    for f in board:
+        if f == turn:
+            n += 1
+    return n
 
 
 def can_move_search(board, y, x, turn, dirY, dirX):
@@ -146,7 +156,17 @@ def main():
         else:
             print(('Circle' if turn == 0 else 'Cross'), 'has to pass.')
         turn = 1 - turn
-
+    
+    print('\n Finish!! \n')
+    
+    circle = count_Stones(board, 0)
+    cross = count_Stones(board, 1)
+    if circle > cross:
+        print('Circle won!!)
+    elif circle < cross:
+        print('Cross won!!')
+    else:
+        print('Drow!!')
 
 #実行する
 main()
