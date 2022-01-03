@@ -1,5 +1,3 @@
-Python での設計図
-
 '''
 Reversi
 8*8
