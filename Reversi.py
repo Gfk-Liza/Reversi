@@ -62,10 +62,10 @@ def move(board, str_y, str_x, turn):
 
     way_of_moving_Y = [ -1, -1,  0,  1,  1,  1,  0, -1 ]
     way_of_moving_X = [  0,  1,  1,  1,  0, -1, -1, -1 ]
-
+    
+    board[y][x] = turn
     for wy, wx in zip(way_of_moving_Y, way_of_moving_X):
         if (can_move_search(board, y, x, turn, wy, wx)):
-            board[y][x] = turn
             y += wy
             x += wx
 
@@ -74,6 +74,9 @@ def move(board, str_y, str_x, turn):
                     board[y][x] = turn
                 y += wy
                 x += wx
+            
+            y = int(str_y)
+            x = int(str_x)
     return board
 
 
