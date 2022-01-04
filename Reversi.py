@@ -128,7 +128,7 @@ def ask(board, turn):
                 print('Do not enter anything other than numbers.')
 
 
-def qestion(text):
+def question(text):
     while True:
         answer = input(text + '(1 if yes, 0 if no)> ')
         if answer in ['1', '0']:
@@ -145,7 +145,7 @@ def main():
     board[4][4] = 0
 
     print('===REVERSI===')
-    mode1 = qestion('Do you guys want to show hints?')
+    mode1 = question('Do you guys want to show hints?')
     turn = 1
     printBoard(board, turn, mode1)
     print('Please enter numbers in the order of length to width.')
