@@ -163,7 +163,7 @@ def main():
     circle = count_Stones(board, 0)
     cross = count_Stones(board, 1)
     if circle > cross:
-        print('Circle won!!)
+        print('Circle won!!')
     elif circle < cross:
         print('Cross won!!')
     else:
