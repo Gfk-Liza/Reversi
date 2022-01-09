@@ -1,12 +1,12 @@
+import random
+
 '''
 Reversi
 8*8
-
-空白 = -1
+Blank = -1
 A = 0
 B = 1
-
-必ず、(y,x)の順番
+Always in the order of (y,x)
 '''
 
 
@@ -24,10 +24,10 @@ def count_stones(board, turn):
 
 
 def list_of_definite_stones(board, turn):
-    way_of_reference_point_Y = [ 0, 0, 7, 7, 0, 0, 7, 7 ]
-    way_of_reference_point_X = [ 0, 7, 0, 7, 0, 7, 0, 7 ]
-    way_of_moving_Y = [ 1,  0, -1,  0,  0,  1,  0, -1 ]
-    way_of_moving_X = [ 0, -1,  0,  1,  1,  0, -1,  0 ]
+    way_of_reference_point_Y = [  0,  0,  7,  7,  0,  0,  7,  7 ]
+    way_of_reference_point_X = [  0,  7,  0,  7,  0,  7,  0,  7 ]
+    way_of_moving_Y =          [  1,  0, -1,  0,  0,  1,  0, -1 ]
+    way_of_moving_X =          [  0, -1,  0,  1,  1,  0, -1,  0 ]
     
     definite_stone_list = [[ False for _ in range(8)] for _ in range(8)]
 
@@ -100,6 +100,7 @@ def can_move(board, y, x, turn):
     for wy, wx in zip(way_of_moving_Y, way_of_moving_X):
         if (can_move_search(board, y, x, turn, wy, wx)):
             return True
+    
     return False
 
 
@@ -124,12 +125,14 @@ def move(board, str_y, str_x, turn):
             
             y = int(str_y)
             x = int(str_x)
+    
     return board
 
 
 def random_computer(board, turn):
     tmpY = []
     tmpX = []
+
     for y in range(8):
         for x in range(8):
             if can_move(board, y, x, turn):
@@ -137,6 +140,7 @@ def random_computer(board, turn):
                 tmpX.append(x)
     
     i = random.randrange(0, len(tmpY))
+
     return str(tmpY[i]) + str(tmpX[i])
 
 
@@ -158,6 +162,7 @@ def is_finished(board): #終了しないならばTrue
 def print_board(board, turn, hints):
     print('┌───┬───┬───┬───┬───┬───┬───┬───┬───┐')
     print('│ \ │ 0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │')
+
     for y in range(8):
         print('├───┼───┼───┼───┼───┼───┼───┼───┼───┤')
         print('│ ' + str(y), end = ' │')
@@ -168,6 +173,7 @@ def print_board(board, turn, hints):
                 ' A ' if board[y][x] == 0 else ' B '
                 , end='│')
         print()
+    
     print('└───┴───┴───┴───┴───┴───┴───┴───┴───┘')
 
 
@@ -217,6 +223,7 @@ def main():
                 ans = ask(board, turn)
             else:
                 ans = random_computer(board, turn)
+            
             move(board, ans[0], ans[1], turn)
             print_board(board, 1 - turn, mode1)
             print('A :', count_stones(board, 0))
