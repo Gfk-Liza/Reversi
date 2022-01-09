@@ -167,11 +167,7 @@ def print_board(board, turn, hints):
         print('├───┼───┼───┼───┼───┼───┼───┼───┼───┤')
         print('│ ' + str(y), end = ' │')
         for x in range(8):
-            print(
-                ' * ' if (hints and can_move(board, y, x, turn)) else 
-                '   ' if board[y][x] == -1 else 
-                ' A ' if board[y][x] == 0 else ' B '
-                , end='│')
+            print(' * ' if (hints and can_move(board, y, x, turn)) else ('   ' if board[y][x] == -1 else (' A ' if board[y][x] == 0 else ' B ')), end='│')
         print()
     
     print('└───┴───┴───┴───┴───┴───┴───┴───┴───┘')
@@ -208,10 +204,21 @@ def main():
     board[3][4] = 0
     board[4][3] = 0
     board[4][4] = 1
-
+    
+    turn = 0
+    
     print('===REVERSI===')
     mode1 = question('Do you want to show hints?')
-    turn = 0
+    mode2 = question('Do you want the computers to fight each other?')
+    mode3 = False
+    if not mode2:
+        mode3 = question('Do you want to fight the computer?')
+        if mode3:
+            if question('Do you want to make the first move randomly?'):
+                turn = random.randint(0, 1)
+            else:
+                if question('You want to be the first?'):
+                    turn = 1
 
     print_board(board, turn, mode1)
     print('A : 2\nB : 2')
@@ -219,10 +226,13 @@ def main():
 
     while is_finished(board):
         if is_pass(board, turn):
-            if True:
-                ans = ask(board, turn)
-            else:
+            if mode2:
                 ans = random_computer(board, turn)
+            else:
+                if mode3 and turn == 0:
+                    ans = random_computer(board, turn)
+                else:
+                    ans = ask(board, turn)
             
             move(board, ans[0], ans[1], turn)
             print_board(board, 1 - turn, mode1)
